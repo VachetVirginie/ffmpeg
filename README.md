@@ -1,7 +1,10 @@
 ## Ffmpeg
 ![FFmpeg logo](https://i1.wp.com/www.softwarert.com/wp-content/uploads/2017/08/ffmpeg-logo.png?resize=396%2C160&ssl=1)
 
-# Installation :
+## Ressources:
+##### FFMPEG Tuto sur youtube
+https://www.youtube.com/playlist?list=PL-jO1Uomc5sdlqcl5TuAA2Z7U7r2dzsxX
+# Installation:
 
 ```sh
 apt install ffmpeg
@@ -42,10 +45,38 @@ ffmpeg -i video0.mkv -i ../img/maillot-blue.png -filter_complex "overlay=10:10" 
 ```sh
 ffmpeg -i video.mp4 -filter:v drawtext="fontfile=e\:/font/segoeui.ttf:text='Hello World':fontcolor=white@1.0:fontsize=30:y=h/2:x=0"-y output.mp4
 ```
+### Texte centré 
+```sh
+ffmpeg -i "video0.mkv" -vf drawtext="fontfile=/usr/share/fonts/truetype/open-sans/OpenSans-Regular.ttf:text='Title of this Video':x=(w-tw)/2:y=(h-th)/2"  test_edited.mkv
+```
+## Timmer video
+```sh
+ffmpeg -i "video0.mkv" -vf "drawtext=fontfile=OpenSans-Regular.ttf:text='%{eif\:$duration-t\:d}':fontcolor=white:fontsize=24:x=w-tw-20:y=th:box=1:boxcolor=black@0.5:boxborderw=10,format=yuv420p" -c:v libx264 -c:a copy -movflags +faststart outputZA.mp4
+```
+
+## Ajouter du texte avec des params de temps:
+```sh
+ffmpeg -i video0.mkv -filter_complex "drawtext=text='Summer Video':enable='between(t,15,20)',fade=t=in:start_time=15:d=0.5:alpha=1,fade=t=out:start_time=19.5:d=0.5:alpha=1[fg];[0][fg]overlay=format=auto,format=yuv420p" -c:a copy output.mp4
+```
+
+### Multiline scrolling text from text file
+```sh
+ffmpeg -i invideo.mkv -vf "[in]drawtext=fontfile=c\÷:÷windows/Fonts/arial.ttf:fonts=40:fontcolor=blue:x(w-text_w)/2:y=h/2:textfile="hello.txt"
+```
 ## Ajouter texte et image
 ```sh
 ffmpeg -i video.mp4 -i logo.png -filter_complex "[0:v][1:v]overlay=10:10,drawtext=text='Hello World'" -c:a copy -movflags +faststart output.mp4
 ```
+## Ajouter un filtre de telle à telle sec:
+```sh
+ffmpeg -i inVideo.mkv -q 6 -filter_complex " smartblur(nomFiltre) = lr = 5 : enable = 'between(t,5,10)'" outVideo.mkv
+```
++ t = Timestamp en secondes
++ n = numéro d'image actuel
++ w,h width et height de la video
++ between(x,min,max) = retourne 1 si x est entre ou egal à min et max
+
+
 ### Obtenir des infos sur un fichier vidéo
 
 `ffmpeg -i video.avi`
