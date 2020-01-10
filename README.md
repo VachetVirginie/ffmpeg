@@ -4,6 +4,8 @@
 ## Ressources:
 ##### FFMPEG Tuto sur youtube
 https://www.youtube.com/playlist?list=PL-jO1Uomc5sdlqcl5TuAA2Z7U7r2dzsxX
+#### FFMPEG pour Flutter
+https://flutterawesome.com/ffmpeg-plugin-for-flutter-supports-ios-and-android/
 # Installation:
 
 ```sh
@@ -18,6 +20,10 @@ ffmpeg -filters
 Il est possible de voir les options disponibles d'un filtre spécifique comme par exemple avec scale :
 ```sh
 ffmpeg -h filter=scale
+```
+# Ajouter 2 imgs et le score:
+```sh
+ffmpeg -i video0.mkv -i ../img/logo.png -i ../img/scoreboard.png -filter_complex "[0:v]drawtext=fontfile=font.ttf:text='01':fontcolor=black@1.0:fontsize=24:x=20:y=259, drawtext=fontfile=font.ttf:text='02':fontcolor=black@1.0:fontsize=24:x=500:y=500[text];[text][1:v]overlay=215:0[ol1];[ol1][2:v]overlay=400:300[filtered]" -map "[filtered]" -codec:v libx264 -codec:a copy output.mkv
 ```
 # Logo location
 
@@ -49,6 +55,10 @@ ffmpeg -i video.mp4 -filter:v drawtext="fontfile=e\:/font/segoeui.ttf:text='Hell
 ```sh
 ffmpeg -i "video0.mkv" -vf drawtext="fontfile=/usr/share/fonts/truetype/open-sans/OpenSans-Regular.ttf:text='Title of this Video':x=(w-tw)/2:y=(h-th)/2"  test_edited.mkv
 ```
+### Lister font dispo:
+
+ls /usr/share/fonts/truetype/freefont/
+
 ## Timmer video
 ```sh
 ffmpeg -i "video0.mkv" -vf "drawtext=fontfile=OpenSans-Regular.ttf:text='%{eif\:$duration-t\:d}':fontcolor=white:fontsize=24:x=w-tw-20:y=th:box=1:boxcolor=black@0.5:boxborderw=10,format=yuv420p" -c:v libx264 -c:a copy -movflags +faststart outputZA.mp4
@@ -65,7 +75,7 @@ ffmpeg -i invideo.mkv -vf "[in]drawtext=fontfile=c\÷:÷windows/Fonts/arial.ttf:
 ```
 ## Ajouter texte et image
 ```sh
-ffmpeg -i video.mp4 -i logo.png -filter_complex "[0:v][1:v]overlay=10:10,drawtext=text='Hello World'" -c:a copy -movflags +faststart output.mp4
+ffmpeg -i video0.mkv -i scoreboard.png -filter_complex "[0:v][1:v]overlay=10:10,drawtext=text='Hello World',logo.png" -c:a copy -movflags +faststart output.mkv
 ```
 ## Ajouter un filtre de telle à telle sec:
 ```sh
