@@ -56,8 +56,13 @@ ffmpeg -i video.mp4 -filter:v drawtext="fontfile=e\:/font/segoeui.ttf:text='Hell
 ffmpeg -i "video0.mkv" -vf drawtext="fontfile=/usr/share/fonts/truetype/open-sans/OpenSans-Regular.ttf:text='Title of this Video':x=(w-tw)/2:y=(h-th)/2"  test_edited.mkv
 ```
 ### Lister font dispo:
+Possibilité d'en rajouter d'autres en passant en param la font comme en css
 
+```sh
 ls /usr/share/fonts/truetype/freefont/
+```
+FreeMonoBoldOblique.ttf  FreeMonoBold.ttf  FreeMonoOblique.ttf  FreeMono.ttf  FreeSansBoldOblique.ttf  FreeSansBold.ttf  FreeSansOblique.ttf  FreeSans.ttf  FreeSerifBoldItalic.ttf  FreeSerifBold.ttf  FreeSerifItalic.ttf  FreeSerif.ttf
+
 
 ## Timmer video
 ```sh
