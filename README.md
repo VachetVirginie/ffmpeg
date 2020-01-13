@@ -2,6 +2,8 @@
 ![FFmpeg logo](https://i1.wp.com/www.softwarert.com/wp-content/uploads/2017/08/ffmpeg-logo.png?resize=396%2C160&ssl=1)
 
 ## Ressources:
+##### FFMPEG Documentation
+https://ffmpeg.org/ffmpeg.html
 ##### FFMPEG Tuto sur youtube
 https://www.youtube.com/playlist?list=PL-jO1Uomc5sdlqcl5TuAA2Z7U7r2dzsxX
 #### FFMPEG pour Flutter
