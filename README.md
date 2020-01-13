@@ -23,6 +23,18 @@ Il est possible de voir les options disponibles d'un filtre spécifique comme pa
 ```sh
 ffmpeg -h filter=scale
 ```
+# Ajouter une img (elements dans les params)
+```sh
+ffmpeg -i inputfile1.mp4 -i inputfile2.jpg -filter_complex "[1] scale=w=200:h=100 [tmp]; [0][tmp] overlay=x=10:y=10" outputfile.mp4
+```
+    [1]: selects inputfile2.jpg
+    scale Scale an inputfile to specified size
+        w width of inputfile
+        h height of inputfile
+    overlay Overlay image on inputfile
+        x x-coordinate to start image overlay
+        y y-coordinate to start image overlay
+
 # Ajouter 2 imgs et le score:
 ```sh
 ffmpeg -i video0.mkv -i ../img/logo.png -i ../img/scoreboard.png -filter_complex "[0:v]drawtext=fontfile=font.ttf:text='01':fontcolor=black@1.0:fontsize=24:x=20:y=259, drawtext=fontfile=font.ttf:text='02':fontcolor=black@1.0:fontsize=24:x=500:y=500[text];[text][1:v]overlay=215:0[ol1];[ol1][2:v]overlay=400:300[filtered]" -map "[filtered]" -codec:v libx264 -codec:a copy output.mkv
